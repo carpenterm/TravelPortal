@@ -1,7 +1,7 @@
 IMAGE ?= todo-app
 TAG ?= latest
 REGISTRY ?= quay.io/rahulk10
-CHART_DIR ?= helm-charts
+CHART_DIR ?= helm-charts/todo-app
 RELEASE ?= todo-app
 NAMESPACE ?= default
 

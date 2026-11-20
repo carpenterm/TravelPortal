@@ -6,7 +6,7 @@ IMAGE=${IMAGE:-todo-app}
 TAG=${TAG:-latest}
 RELEASE=${RELEASE:-todo-app}
 NAMESPACE=${NAMESPACE:-default}
-CHART_DIR=${CHART_DIR:-helm-charts}
+CHART_DIR=${CHART_DIR:-helm-charts/todo-app}
 
 helm upgrade --install "$RELEASE" "$CHART_DIR" \
   --namespace "$NAMESPACE" --create-namespace \

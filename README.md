@@ -27,12 +27,12 @@ Notes for CI systems: the Dockerfile is designed to be CI-friendly (sets `GOPROX
 
 ## Deploy to Kubernetes
 
-The Helm chart is in `helm-charts`. By default the chart expects `env.todoPassword` to be provided and will render a Secret named `<release>-auth` with key `todopassword`.
+The Helm chart is in `helm-charts/todo-app`. By default the chart expects `env.todoPassword` to be provided and will render a Secret named `<release>-auth` with key `todopassword`.
 
 Recommended deploy (example using `helm` flags):
 
 ```bash
-helm upgrade --install todo-app helm-charts \
+helm upgrade --install todo-app helm-charts/todo-app \
 	--namespace demo --create-namespace \
 	--set image.repository=<registry>/<image> \
 	--set image.tag=<tag> \
@@ -43,7 +43,7 @@ Alternative: create a Kubernetes Secret manually and skip `env.todoPassword` in 
 
 Persistence: the app uses SQLite by default (file `scheduler.db`). For production-like runs, mount a PVC at the path you choose using `values.volumeMounts` and `values.volumes` in the chart.
 
-Probes: liveness/readiness probe paths are set to `/health` in `helm-charts/values.yaml`.
+Probes: liveness/readiness probe paths are set to `/health` in `helm-charts/todo-app/values.yaml`.
 
 Security & runtime recommendations:
 - Provide a non-default, strong `TODO_PASSWORD` via the Helm values/Secret.
@@ -66,7 +66,7 @@ If you want, I can add a sample `gitlab-ci.yml`, `drone.yml`, or a minimal Jenki
 
 ## Where to look
 - Dockerfile: `Dockerfile`
-- Helm chart: `helm-charts/`
+- Helm chart: `helm-charts/todo-app/`
 - Web UI: `web/` (login at `login.html`, main app at `/`)
 
 ## Updates 
