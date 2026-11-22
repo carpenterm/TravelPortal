@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "todo-app.fullname" . }}
+  name: {{ include "travelportal.fullname" . }}
   labels:
-    {{- include "todo-app.labels" . | nindent 4 }}
+    {{- include "travelportal.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "todo-app.selectorLabels" . | nindent 6 }}
+      {{- include "travelportal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "todo-app.labels" . | nindent 8 }}
+        {{- include "travelportal.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "todo-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "travelportal.serviceAccountName" . }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -45,12 +45,11 @@ spec:
               containerPort: 7540
               protocol: TCP
           env:
-            - name: TODO_PASSWORD
-              #value: {{ .Values.env.todoPassword }}
+            - name: TRAVELPORTAL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "todo-app.fullname" . }}-auth
-                  key: todopassword
+                  name: {{ include "travelportal.fullname" . }}-auth
+                  key: travelportalpassword
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}

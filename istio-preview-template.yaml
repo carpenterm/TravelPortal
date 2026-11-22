@@ -30,6 +30,6 @@ spec:
         prefix: /
     route:
     - destination:
-        host: todo-app.default.svc.cluster.local 
+        host: travelportal.default.svc.cluster.local
         port:
           number: 80

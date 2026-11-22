@@ -1,10 +1,10 @@
 package routes
 
 import (
-	handlers "github.com/antonkazachenko/go-todo-list-api/internal/server"
-	"github.com/antonkazachenko/go-todo-list-api/internal/service"
-	"github.com/antonkazachenko/go-todo-list-api/middleware"
 	"github.com/go-chi/chi/v5"
+	handlers "github.com/skandpurohit/TravelPortal/internal/server"
+	"github.com/skandpurohit/TravelPortal/internal/service"
+	"github.com/skandpurohit/TravelPortal/middleware"
 )
 
 func RegisterRoutes(taskService *service.TaskService) *chi.Mux {

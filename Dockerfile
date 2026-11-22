@@ -17,30 +17,29 @@ RUN apk add --no-cache gcc musl-dev linux-headers sqlite-dev
 
 # Build with CGO enabled for sqlite3 support
 ENV CGO_ENABLED=1
-RUN go build -ldflags "-s -w" -o /app/main .
+RUN go build -ldflags "-s -w" -o /app/travelportal .
 
 FROM alpine:3.18
 
-LABEL org.opencontainers.image.source="https://example.com/your-repo"
+LABEL org.opencontainers.image.source="https://github.com/skandpurohit/TravelPortal"
 
 RUN apk add --no-cache ca-certificates
 
 WORKDIR /app
 
-COPY --from=builder /app/main .
+COPY --from=builder /app/travelportal .
 COPY --from=builder /app/web ./web
 
 # Create non-root user for safer runtime in CI/CD environments
 RUN addgroup -S app && adduser -S app -G app \
 	&& chown -R app:app /app \
-	&& chmod +x /app/main
+	&& chmod +x /app/travelportal
 
-ENV TODO_PORT=7540
-ENV TODO_DBFILE=scheduler.db
+# Use the fallback variable for the demo default so either password variable can override it.
 ENV TODO_PASSWORD=test12345
 
 EXPOSE 7540
 
 USER app
 
-CMD ["/app/main"]
+CMD ["/app/travelportal"]

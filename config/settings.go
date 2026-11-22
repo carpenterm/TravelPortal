@@ -7,26 +7,23 @@ import (
 )
 
 var (
-	TODO_DBFILE = getEnv("TODO_DBFILE", "scheduler.db")
-	TODO_PORT   = getEnv("TODO_PORT", "7540")
+	DBFile = getEnv("TRAVELPORTAL_DBFILE", "TODO_DBFILE", "scheduler.db")
+	Port   = getEnv("TRAVELPORTAL_PORT", "TODO_PORT", "7540")
 )
 
-// GetPassword returns the application password. It prefers the TODO_PASSWORD
-// environment variable and falls back to the Vault-injected file at
-// /vault/secrets/config.txt when the env var is not set.
+var vaultPassword = regexp.MustCompile(`(travelportalPassword|todoPassword)\s*[:=]\s*([^\]\s]+)`)
+
+// GetPassword reads the configured password, then checks the Vault-injected file.
 func GetPassword() string {
-	if v := os.Getenv("TODO_PASSWORD"); v != "" {
+	if v := getEnv("TRAVELPORTAL_PASSWORD", "TODO_PASSWORD", ""); v != "" {
 		return v
 	}
 	b, err := os.ReadFile("/vault/secrets/config.txt")
 	if err == nil {
 		s := strings.TrimSpace(string(b))
 		if s != "" {
-			// Try to extract `todoPassword` from formats like:
-			// data: map[todoPassword:test12345]
-			re := regexp.MustCompile(`todoPassword\s*[:=]\s*([^\]\s\n]+)`)
-			if m := re.FindStringSubmatch(s); len(m) >= 2 {
-				return m[1]
+			if m := vaultPassword.FindStringSubmatch(s); m != nil {
+				return m[2]
 			}
 			// Fallback: if file is just the password
 			return s
@@ -35,8 +32,11 @@ func GetPassword() string {
 	return ""
 }
 
-func getEnv(key, defaultValue string) string {
+func getEnv(key, legacyKey, defaultValue string) string {
 	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	if value, exists := os.LookupEnv(legacyKey); exists {
 		return value
 	}
 	return defaultValue

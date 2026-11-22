@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/antonkazachenko/go-todo-list-api/models"
+	"github.com/skandpurohit/TravelPortal/models"
 )
 
 func SendErrorResponse(res http.ResponseWriter, errorMessage string, statusCode int) {
