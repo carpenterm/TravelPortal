@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/antonkazachenko/go-todo-list-api/internal/entities"
-	"github.com/antonkazachenko/go-todo-list-api/internal/service"
-	"github.com/antonkazachenko/go-todo-list-api/models"
-	"github.com/antonkazachenko/go-todo-list-api/utils"
+	"github.com/skandpurohit/TravelPortal/internal/entities"
+	"github.com/skandpurohit/TravelPortal/internal/service"
+	"github.com/skandpurohit/TravelPortal/models"
+	"github.com/skandpurohit/TravelPortal/utils"
 )
 
 type Handlers struct {

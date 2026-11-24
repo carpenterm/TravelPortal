@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/antonkazachenko/go-todo-list-api/config"
-	"github.com/antonkazachenko/go-todo-list-api/internal/service"
-	storage "github.com/antonkazachenko/go-todo-list-api/internal/storage/sqlite"
-	"github.com/antonkazachenko/go-todo-list-api/routes"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/skandpurohit/TravelPortal/config"
+	"github.com/skandpurohit/TravelPortal/internal/service"
+	storage "github.com/skandpurohit/TravelPortal/internal/storage/sqlite"
+	"github.com/skandpurohit/TravelPortal/routes"
 )
 
 func isValidToken(tokenString string) bool {
@@ -69,7 +69,7 @@ func main() {
 		fileServer.ServeHTTP(w, r)
 	})
 
-	address := fmt.Sprintf(":%s", config.TODO_PORT)
+	address := fmt.Sprintf(":%s", config.Port)
 	log.Printf("Starting server on %s", address)
 	if err := http.ListenAndServe(address, router); err != nil {
 		log.Fatalf("Failed to start server: %v", err)

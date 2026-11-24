@@ -1,4 +1,4 @@
-module github.com/antonkazachenko/go-todo-list-api
+module github.com/skandpurohit/TravelPortal
 
 go 1.25.0
 

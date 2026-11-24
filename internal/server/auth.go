@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/antonkazachenko/go-todo-list-api/config"
-	"github.com/antonkazachenko/go-todo-list-api/models"
-	"github.com/antonkazachenko/go-todo-list-api/utils"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/skandpurohit/TravelPortal/config"
+	"github.com/skandpurohit/TravelPortal/models"
+	"github.com/skandpurohit/TravelPortal/utils"
 )
 
 func (h *Handlers) HandleSignIn(res http.ResponseWriter, req *http.Request) {

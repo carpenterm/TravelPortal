@@ -1,8 +1,8 @@
-IMAGE ?= todo-app
+IMAGE ?= travelportal
 TAG ?= latest
 REGISTRY ?= quay.io/rahulk10
-CHART_DIR ?= helm-charts/todo-app
-RELEASE ?= todo-app
+CHART_DIR ?= helm-charts/travelportal
+RELEASE ?= travelportal
 NAMESPACE ?= default
 
 .PHONY: docker-build docker-push helm-deploy helm-upgrade

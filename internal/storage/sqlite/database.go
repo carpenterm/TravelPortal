@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/antonkazachenko/go-todo-list-api/config"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/skandpurohit/TravelPortal/config"
 )
 
 func InitDB() *sql.DB {
-	db, err := sql.Open("sqlite3", config.TODO_DBFILE)
+	db, err := sql.Open("sqlite3", config.DBFile)
 	if err != nil {
 		log.Fatalf("Failed to open database: %v", err)
 	}

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/antonkazachenko/go-todo-list-api/internal/entities"
+	"github.com/skandpurohit/TravelPortal/internal/entities"
 )
 
 type SQLiteTaskRepository struct {
