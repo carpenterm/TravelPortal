@@ -31,8 +31,9 @@ COPY --from=builder /app/travelportal .
 COPY --from=builder /app/web ./web
 
 # Create non-root user for safer runtime in CI/CD environments
-RUN addgroup -S app && adduser -S app -G app \
-	&& chown -R app:app /app \
+# A numeric UID, so Kubernetes can verify runAsNonRoot.
+RUN addgroup -S -g 10001 app && adduser -S -u 10001 -G app app \
+	&& chown -R 10001:10001 /app \
 	&& chmod +x /app/travelportal
 
 # Use the fallback variable for the demo default so either password variable can override it.
@@ -40,6 +41,6 @@ ENV TODO_PASSWORD=test12345
 
 EXPOSE 7540
 
-USER app
+USER 10001:10001
 
 CMD ["/app/travelportal"]
